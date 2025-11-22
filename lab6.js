@@ -9,7 +9,7 @@ let progressInterval = null;
 function startSpinner() {
     const spinner = document.getElementById('spinner');
     const loadBtn = document.querySelector('[data-loader="spinner"].load-btn');
-    
+
     // Disable button and start animation
     loadBtn.disabled = true;
     spinner.classList.add('active');
@@ -18,7 +18,7 @@ function startSpinner() {
 function stopSpinner() {
     const spinner = document.getElementById('spinner');
     const loadBtn = document.querySelector('[data-loader="spinner"].load-btn');
-    
+
     // Stop animation and re-enable button
     spinner.classList.remove('active');
     loadBtn.disabled = false;
@@ -30,29 +30,29 @@ function startProgressBar() {
     const progressFill = document.querySelector('.progress-fill');
     const progressText = document.getElementById('progress-text');
     const loadBtn = document.querySelector('[data-loader="progress"].load-btn');
-    
+
     // Disable button
     loadBtn.disabled = true;
-    
+
     // Show progress bar
     progressWrapper.classList.add('active');
-    
+
     // Reset and start progress
     let progress = 0;
     progressFill.style.width = '0%';
     progressText.textContent = '0%';
-    
+
     // Update progress continuously
     progressInterval = setInterval(() => {
-        progress += 1;
+        progress += 0.5;
         progressFill.style.width = progress + '%';
-        progressText.textContent = progress + '%';
-        
+        progressText.textContent = Math.round(progress) + '%';
+
         // Loop back to 0 when reaching 100
         if (progress >= 100) {
             progress = 0;
         }
-    }, 20); // Update every 20ms for smooth animation
+    }, 50); // Update every 50ms with 0.5% increments for a smooth 10-second cycle
 }
 
 function stopProgressBar() {
@@ -60,17 +60,17 @@ function stopProgressBar() {
     const progressFill = document.querySelector('.progress-fill');
     const progressText = document.getElementById('progress-text');
     const loadBtn = document.querySelector('[data-loader="progress"].load-btn');
-    
+
     // Stop interval
     if (progressInterval) {
         clearInterval(progressInterval);
         progressInterval = null;
     }
-    
+
     // Hide and reset
     progressWrapper.classList.remove('active');
     loadBtn.disabled = false;
-    
+
     setTimeout(() => {
         progressFill.style.width = '0%';
         progressText.textContent = '0%';
@@ -81,7 +81,7 @@ function stopProgressBar() {
 function startDotsLoader() {
     const dotsLoader = document.getElementById('dots-loader');
     const loadBtn = document.querySelector('[data-loader="dots"].load-btn');
-    
+
     // Disable button and start animation
     loadBtn.disabled = true;
     dotsLoader.classList.add('active');
@@ -90,7 +90,7 @@ function startDotsLoader() {
 function stopDotsLoader() {
     const dotsLoader = document.getElementById('dots-loader');
     const loadBtn = document.querySelector('[data-loader="dots"].load-btn');
-    
+
     // Stop animation and re-enable button
     dotsLoader.classList.remove('active');
     loadBtn.disabled = false;
@@ -100,8 +100,8 @@ function stopDotsLoader() {
 loadButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         const loaderType = e.target.dataset.loader;
-        
-        switch(loaderType) {
+
+        switch (loaderType) {
             case 'spinner':
                 startSpinner();
                 break;
@@ -118,8 +118,8 @@ loadButtons.forEach(button => {
 stopButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         const loaderType = e.target.dataset.loader;
-        
-        switch(loaderType) {
+
+        switch (loaderType) {
             case 'spinner':
                 stopSpinner();
                 break;
