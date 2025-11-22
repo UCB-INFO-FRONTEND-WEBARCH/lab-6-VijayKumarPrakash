@@ -2,7 +2,7 @@
 const loadButtons = document.querySelectorAll('.load-btn');
 const stopButtons = document.querySelectorAll('.stop-btn');
 
-// Store interval IDs
+// Variable to track active progress interval
 let progressInterval = null;
 
 // ============ SPINNER LOADER ============
@@ -15,6 +15,7 @@ function startSpinner() {
     spinner.classList.add('active');
 }
 
+// Stop spinner animation
 function stopSpinner() {
     const spinner = document.getElementById('spinner');
     const loadBtn = document.querySelector('[data-loader="spinner"].load-btn');
@@ -42,7 +43,7 @@ function startProgressBar() {
     progressFill.style.width = '0%';
     progressText.textContent = '0%';
 
-    // Update progress continuously
+    // Increment progress bar smoothly; loop back to 0 at 100%
     progressInterval = setInterval(() => {
         progress += 0.5;
         progressFill.style.width = progress + '%';
@@ -52,9 +53,10 @@ function startProgressBar() {
         if (progress >= 100) {
             progress = 0;
         }
-    }, 50); // Update every 50ms with 0.5% increments for a smooth 10-second cycle
+    }, 50);
 }
 
+// Stop progress bar and reset
 function stopProgressBar() {
     const progressWrapper = document.querySelector('.progress-wrapper');
     const progressFill = document.querySelector('.progress-fill');
@@ -87,6 +89,7 @@ function startDotsLoader() {
     dotsLoader.classList.add('active');
 }
 
+// Stop dots animation
 function stopDotsLoader() {
     const dotsLoader = document.getElementById('dots-loader');
     const loadBtn = document.querySelector('[data-loader="dots"].load-btn');
@@ -97,6 +100,7 @@ function stopDotsLoader() {
 }
 
 // ============ EVENT LISTENERS ============
+// Handle load button clicks
 loadButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         const loaderType = e.target.dataset.loader;
@@ -115,6 +119,7 @@ loadButtons.forEach(button => {
     });
 });
 
+// Handle stop button clicks
 stopButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         const loaderType = e.target.dataset.loader;
